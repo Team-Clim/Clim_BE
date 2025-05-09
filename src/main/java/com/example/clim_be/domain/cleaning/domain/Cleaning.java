@@ -4,6 +4,8 @@ import com.example.clim_be.domain.cleaning.domain.enums.CleaningStatus;
 import com.example.clim_be.domain.user.domain.User;
 import com.example.clim_be.global.base.BaseIdEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +13,9 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cleaning extends BaseIdEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
