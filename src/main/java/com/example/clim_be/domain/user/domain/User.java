@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class User extends BaseIdEntity {
 
     @Column(nullable = false, length = 50)
-    private String name;
+    private String userName;
 
     @Column(nullable = false)
     private String accountId;
@@ -37,10 +37,10 @@ public class User extends BaseIdEntity {
     @Embedded
     private ClassInfo classInfo;
 
-    public User(String accountId, String password, String name, AuthElementDto.Role role, Integer grade, Integer classNum, Integer num) {
+    public User(String accountId, String password, String userName, AuthElementDto.Role role, Integer grade, Integer classNum, Integer num) {
         this.accountId = accountId;
         this.password = password;
-        this.name = name;
+        this.userName = userName;
         this.role = AuthElementDto.Role.BASIC;
         this.classInfo = new ClassInfo(grade, classNum, num, String.format("%1d%1d%02d", grade, classNum, num));
     }
