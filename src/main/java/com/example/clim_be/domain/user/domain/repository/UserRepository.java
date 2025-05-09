@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findByAccountId(String accountId);
 
+    Optional<User> findByUserName(String userName);
+
     Boolean existsByAccountId(String accountId);
 }
