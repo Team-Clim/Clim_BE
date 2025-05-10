@@ -21,7 +21,7 @@ public class AdminLoginService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public TokenResponse login(LoginRequest request) {
+    public TokenResponse execute(LoginRequest request) {
         Admin admin = adminRepository.findByAccountId(request.getAccountId())
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
