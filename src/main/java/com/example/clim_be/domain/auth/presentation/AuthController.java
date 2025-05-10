@@ -31,19 +31,19 @@ public class AuthController {
     @PostMapping("/admin")
     @ResponseStatus(HttpStatus.OK)
     public TokenResponse adminLogin(@RequestBody @Valid LoginRequest request) {
-        return adminLoginService.login(request);
+        return adminLoginService.execute(request);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void adminRegister(@RequestBody @Valid SignupRequest request) {
-        adminSignupService.signup(request);
+        adminSignupService.execute(request);
     }
 
     @PutMapping("/token")
     @ResponseStatus(HttpStatus.OK)
     public TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
-        return reissueService.reissueToken(token);
+        return reissueService.execute(token);
     }
 
 }
