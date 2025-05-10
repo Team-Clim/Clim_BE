@@ -23,6 +23,7 @@ public enum ErrorCode {
 
     //admin
     ADMIN_NOT_FOUND(404, "존재하지 않는 어드민입니다."),
+    ADMIN_ALREADY_EXIST(401, "이미 존재하는 어드민입니다."),
 
     //feign
     FEIGN_BAD_REQUEST(401, "Feign Bad Reqeust"),
