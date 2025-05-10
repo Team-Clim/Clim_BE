@@ -16,7 +16,7 @@ public class ReissueService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public TokenResponse reissueToken(String token) {
+    public TokenResponse execute(String token) {
         RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(()-> InvalidTokenException.EXCEPTION);
 
