@@ -2,6 +2,7 @@ package com.example.clim_be.domain.auth.application;
 
 import com.example.clim_be.domain.admin.domain.Admin;
 import com.example.clim_be.domain.admin.domain.repository.AdminRepository;
+import com.example.clim_be.domain.admin.exception.AdminAlreadyExistException;
 import com.example.clim_be.domain.admin.presentation.dto.request.SignupRequest;
 import com.example.clim_be.domain.auth.presentation.dto.AuthElementDto;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,11 @@ public class AdminSignupService {
 
     @Transactional
     public void execute(SignupRequest request) {
+
+        if (adminRepository.existsByAccountId(request.getAccountId())) {
+            throw AdminAlreadyExistException.EXCEPTION;
+        }
+
         Admin admin = adminRepository.save(Admin.builder()
                         .userName(request.getUserName())
                         .accountId(request.getAccountId())
