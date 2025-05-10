@@ -16,7 +16,7 @@ public class AdminSignupService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void signup(SignupRequest request) {
+    public void execute(SignupRequest request) {
         Admin admin = adminRepository.save(Admin.builder()
                         .userName(request.getUserName())
                         .accountId(request.getAccountId())
