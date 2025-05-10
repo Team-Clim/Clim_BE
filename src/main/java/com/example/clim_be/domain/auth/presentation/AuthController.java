@@ -40,7 +40,7 @@ public class AuthController {
         adminSignupService.execute(request);
     }
 
-    @PutMapping("/token")
+    @PutMapping("/re-issue")
     @ResponseStatus(HttpStatus.OK)
     public TokenResponse reissueToken(@RequestHeader(name = "x-refresh-token") String token) {
         return reissueService.execute(token);
