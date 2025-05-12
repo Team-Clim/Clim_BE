@@ -23,7 +23,7 @@ public class AdminSignupService {
             throw AdminAlreadyExistException.EXCEPTION;
         }
 
-        Admin admin = adminRepository.save(Admin.builder()
+        adminRepository.save(Admin.builder()
                         .userName(request.getUserName())
                         .accountId(request.getAccountId())
                         .password(passwordEncoder.encode(request.getPassword()))
