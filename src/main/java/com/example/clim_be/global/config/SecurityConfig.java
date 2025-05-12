@@ -36,27 +36,7 @@ public class SecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .sessionManagement(session -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                )
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/user/**").authenticated()
-//                        .anyRequest().permitAll()
-//                )
-//                .exceptionHandling(exception -> exception
-//                        .authenticationEntryPoint(authenticationEntryPoint)
-//                        .accessDeniedHandler(accessDeniedHandler)
-//                );
-//
-//
-//        return http.build();
-//    }
+    
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
