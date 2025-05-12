@@ -118,8 +118,8 @@ public class JwtTokenProvider {
                 .builder()
                 .accessToken(createAccessToken(accountId, role))
                 .refreshToken(createRefreshToken(accountId, role))
-                .accessExpiredAt(new Date(now.getTime() + jwtProperties.getAccessExpiration() * 1000))
-                .refreshExpiredAt(new Date(now.getTime() + jwtProperties.getRefreshExpiration() * 1000))
+                .accessExpiredAt(new Date(now.getTime() + toMillis(jwtProperties.getAccessExpiration())))
+                .refreshExpiredAt(new Date(now.getTime() + toMillis(jwtProperties.getRefreshExpiration())))
                 .build();
 
     }
@@ -127,14 +127,19 @@ public class JwtTokenProvider {
     //HTTP 요청 헤더에서 토큰을 가져오는 메서드
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(jwtProperties.getHeader());
+        String prefix = jwtProperties.getPrefix();
 
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
-                && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
-            return bearerToken.substring(7);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(prefix)
+                && bearerToken.length() > prefix.length()) {
+            return bearerToken.substring(prefix.length());
         }
 
         return null;
     }
 
+
+    private long toMillis(long seconds) {
+        return seconds * 1000L;
+    }
 
 }
