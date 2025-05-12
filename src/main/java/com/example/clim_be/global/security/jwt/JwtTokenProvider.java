@@ -29,6 +29,7 @@ public class JwtTokenProvider {
     private final UserRepository userRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
+    private static final String ACCESS_TOKEN = "access";
 
     //access token 생성
     private String createAccessToken(String accountId, AuthElementDto.Role role) {
@@ -37,10 +38,10 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setSubject(accountId)
-                .claim("type", "access")
-                .claim("user", getSecret(role))
+                .claim(CLAIM_TYPE, ACCESS_TOKEN)
+                .claim(CLAIM_USER_SECRET, getSecret(role))
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtProperties.getAccessExpiration() * 1000))
+                .setExpiration(new Date(now.getTime() + toMillis(jwtProperties.getAccessExpiration())))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }
