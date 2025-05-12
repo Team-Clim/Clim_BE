@@ -30,6 +30,7 @@ public class JwtTokenProvider {
     private final CustomUserDetailsService customUserDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
     private static final String ACCESS_TOKEN = "access";
+    private static final String REFRESH_TOKEN = "refresh";
 
     //access token 생성
     private String createAccessToken(String accountId, AuthElementDto.Role role) {
@@ -51,10 +52,10 @@ public class JwtTokenProvider {
         Date now = new Date();
 
         String refreshToken = Jwts.builder()
-                .claim("type", "refresh")
-                .claim("user", getSecret(role))
+                .claim(CLAIM_TYPE, REFRESH_TOKEN)
+                .claim(CLAIM_USER_SECRET, getSecret(role))
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshExpiration() * 1000))
+                .setExpiration(new Date(now.getTime() + toMillis(jwtProperties.getRefreshExpiration())))
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
 
