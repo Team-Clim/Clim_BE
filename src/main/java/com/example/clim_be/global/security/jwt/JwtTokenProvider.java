@@ -29,8 +29,12 @@ public class JwtTokenProvider {
     private final UserRepository userRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
+
     private static final String ACCESS_TOKEN = "access";
     private static final String REFRESH_TOKEN = "refresh";
+    private static final String CLAIM_TYPE = "type";
+    private static final String CLAIM_USER_SECRET = "user";
+
 
     //access token 생성
     private String createAccessToken(String accountId, AuthElementDto.Role role) {
@@ -86,7 +90,7 @@ public class JwtTokenProvider {
         Claims claims = getClaims(token);
 
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(
-                claims.getSubject() + ":" + claims.get("user")
+                claims.getSubject() + ":" + claims.get(CLAIM_USER_SECRET)
         );
 
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
