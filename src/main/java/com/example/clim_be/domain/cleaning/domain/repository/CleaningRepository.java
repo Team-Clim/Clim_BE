@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CleaningRepository extends CrudRepository<Cleaning, Long> {
+public interface CleaningRepository extends CrudRepository<Cleaning, Long> , CleaningRepositoryCustom{
 }
