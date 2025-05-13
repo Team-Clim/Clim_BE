@@ -26,7 +26,7 @@ public class InputCleaningService {
         User user = userRepository.findByUserName(request.getUserName())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        Cleaning cleaning = cleaningRepository.save(Cleaning.builder()
+        cleaningRepository.save(Cleaning.builder()
                         .user(user)
                         .status(request.getCleaningStatus())
                         .reason(request.getReason())
