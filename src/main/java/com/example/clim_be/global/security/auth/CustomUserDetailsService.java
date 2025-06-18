@@ -42,15 +42,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (!userRepository.existsById(userId)) {
             throw UserNotFoundException.EXCEPTION;
         }
-
         return AuthElementDto.Role.BASIC.name();
     }
 
-    private String handleAdmin(Long adminId) {
-        if (!adminRepository.existsById(adminId)) {
+    private String handleAdmin(String adminName) {
+        if (!adminRepository.existsByUserName(adminName)) {
             throw AdminNotFoundException.EXCEPTION;
         }
-
         return AuthElementDto.Role.ADMIN.name();
     }
+
 }
