@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class InputCleaningService {
@@ -20,17 +22,19 @@ public class InputCleaningService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void input(CleaningRequest request) {
+    public void execute(CleaningRequest request) {
         Admin admin = adminFacade.currentAdmin();
 
-        User user = userRepository.findByUserName(request.getUserName())
+        User targetUser = userRepository.findByUserName(request.getUserName())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
+        LocalDate today = LocalDate.now();
+
         cleaningRepository.save(Cleaning.builder()
-                        .user(user)
+                        .user(targetUser)
                         .status(request.getCleaningStatus())
                         .reason(request.getReason())
-                        .date(request.getDate())
+                        .date(today)
                 .build());
     }
 }
