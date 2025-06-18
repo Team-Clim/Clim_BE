@@ -23,15 +23,23 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String accountId) {
         var parts = accountId.split(":");
 
-        var userId = parts[0];
-        var userSecretId = parts[1];
+        if (parts.length != 2) {
+            throw InvalidTokenException.EXCEPTION;
+        }
+
+        var idPart = parts[0];
+        var secret = parts[1];
         String type;
 
-        if (userSecretId.equals(jwtProperties.getAdminSecret())) {
-            type = handleAdmin(Long.valueOf(userId));
-        } else if (userSecretId.equals(jwtProperties.getBasicSecret())) {
-            type = handleUser(Long.valueOf(userId));
-        } else {
+        try {
+            if (secret.equals(jwtProperties.getAdminSecret())) {
+                type = handleAdmin(idPart);
+            } else if (secret.equals(jwtProperties.getBasicSecret())) {
+                type = handleUser(Long.valueOf(idPart));
+            } else {
+                throw InvalidTokenException.EXCEPTION;
+            }
+        } catch (NumberFormatException e) {
             throw InvalidTokenException.EXCEPTION;
         }
 
