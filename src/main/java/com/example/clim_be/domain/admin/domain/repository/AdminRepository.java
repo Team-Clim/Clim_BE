@@ -9,7 +9,8 @@ import java.util.Optional;
 @Repository
 public interface AdminRepository extends CrudRepository<Admin, Long> {
 
-    Boolean existsByAccountId(String accountId);
+    boolean existsByUserName(String name);
+
 
     Optional<Admin> findByAccountId(String accountId);
 }
