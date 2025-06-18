@@ -14,9 +14,5 @@ public class CleaningRequest {
     @NotNull
     private CleaningStatus cleaningStatus;
 
-    @NotNull
     private String reason;
-
-    @NotNull
-    private LocalDate date;
 }
